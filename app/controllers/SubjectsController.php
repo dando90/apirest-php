@@ -8,6 +8,8 @@ use stdClass;
 
 class SubjectsController
 {
+    private $subject;
+
     public function __construct()
     {
         $data = json_decode(file_get_contents("php://input")) ?? new stdClass();

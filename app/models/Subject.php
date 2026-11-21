@@ -7,7 +7,7 @@ use PDO;
 class Subject
 	{
 	private $conn;
-	private $tableName = "subjects";
+	private $tableName = "apirest_subjects";
 	// Subject properties
 	public $id;
 	public $name;
@@ -15,8 +15,8 @@ class Subject
 	public function __construct($db, $data)
 		{
 		$this->conn = $db;
-        $this->id = htmlspecialchars(strip_tags($_GET['id'] ?? null));
-        $this->name = htmlspecialchars(strip_tags($data->name ?? null));
+		$this->id = htmlspecialchars(strip_tags($_GET['id'] ?? ''));
+        $this->name = htmlspecialchars(strip_tags($data->name ?? ''));
 		}
 
     //CRUD functions        

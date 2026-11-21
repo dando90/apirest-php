@@ -7,8 +7,8 @@ use PDO;
 class Course
 	{
 	private $conn;
-	private $tableName = "courses";
-	private $tableSubject = "course_subject";
+	private $tableName = "apirest_courses";
+	private $tableSubject = "apirest_course_subject";
 	// Course properties
 	public $id;
 	public $name;
@@ -22,12 +22,12 @@ class Course
 	public function __construct($db, $data)
 		{
 		$this->conn = $db;
-		$this->id = htmlspecialchars(strip_tags($_GET['id'] ?? null));
-		$this->name = htmlspecialchars(strip_tags($data->name ?? null));
-		$this->places = htmlspecialchars(strip_tags($data->places ?? null));
-        $this->byName = htmlspecialchars(strip_tags($_GET['name'] ?? null));
-		$this->bySubjects = htmlspecialchars(strip_tags($_GET['subjects'] ?? null));
-		$this->byPlaces = htmlspecialchars(strip_tags($_GET['places'] ?? null));
+		$this->id = htmlspecialchars(strip_tags($_GET['id'] ?? ''));
+		$this->name = htmlspecialchars(strip_tags($data->name ?? ''));
+		$this->places = htmlspecialchars(strip_tags($data->places ?? ''));
+        $this->byName = htmlspecialchars(strip_tags($_GET['name'] ?? ''));
+		$this->bySubjects = htmlspecialchars(strip_tags($_GET['subjects'] ?? ''));
+		$this->byPlaces = htmlspecialchars(strip_tags($_GET['places'] ?? ''));
         if (!empty($data->subjects)) {
             foreach ($data->subjects as $currentSubject) {
                 array_push($this->subjects, htmlspecialchars(strip_tags($currentSubject)));
@@ -55,6 +55,7 @@ class Course
         {
             if (empty($this->subjects)) {
                 $query= "DELETE FROM ".$this->tableSubject." WHERE course_id=?";
+                $stmt = $this->conn->prepare($query);
                 $stmt->bindParam(1, $this->id);
             } else {
                 $query= "DELETE FROM ".$this->tableSubject." WHERE course_id=? AND subject_id NOT IN (";

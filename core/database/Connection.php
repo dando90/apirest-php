@@ -10,8 +10,14 @@ class Connection
                 $config['password'],
                 $config['options']
             );
-        } catch (PDOException $e) {
-            die($e->getMessage());
+        } catch (\Throwable $e) {
+            error_log('[REST API] Database connection failed: ' . $e->getMessage());
+            http_response_code(503);
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode([
+                'message' => 'Service Unavailable: impossible to process the request.'
+            ]);
+            exit;
         }
     }
 }

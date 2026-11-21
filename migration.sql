@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 04, 2022 alle 00:16
--- Versione del server: 10.4.22-MariaDB
--- Versione PHP: 8.1.2
+-- Created: May 4, 2022 at 00:16
+-- Server version: 10.4.22-MariaDB
+-- PHP version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,39 +24,39 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `courses`
+-- Structure of table `apirest_courses`
 --
 
-CREATE TABLE `courses` (
+CREATE TABLE `apirest_courses` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(30) NOT NULL,
   `places` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dump dei dati per la tabella `courses`
+-- Seed data for table `apirest_courses`
 --
 
-INSERT INTO `courses` (`id`, `name`, `places`) VALUES
-(1, 'Primo corso', 30),
-(2, 'Secondo corso', 10);
+INSERT INTO `apirest_courses` (`id`, `name`, `places`) VALUES
+(1, 'First course', 30),
+(2, 'Second course', 10);
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `course_subject`
+-- Structure of table `apirest_course_subject`
 --
 
-CREATE TABLE `course_subject` (
+CREATE TABLE `apirest_course_subject` (
   `course_id` int(10) UNSIGNED NOT NULL,
   `subject_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dump dei dati per la tabella `course_subject`
+-- Seed data for table `apirest_course_subject`
 --
 
-INSERT INTO `course_subject` (`course_id`, `subject_id`) VALUES
+INSERT INTO `apirest_course_subject` (`course_id`, `subject_id`) VALUES
 (1, 1),
 (1, 2),
 (2, 1),
@@ -65,72 +65,72 @@ INSERT INTO `course_subject` (`course_id`, `subject_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `subjects`
+-- Structure of table `apirest_subjects`
 --
 
-CREATE TABLE `subjects` (
+CREATE TABLE `apirest_subjects` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dump dei dati per la tabella `subjects`
+-- Seed data for table `apirest_subjects`
 --
 
-INSERT INTO `subjects` (`id`, `name`) VALUES
-(1, 'Matematica'),
-(2, 'Italiano'),
-(3, 'Filosofia');
+INSERT INTO `apirest_subjects` (`id`, `name`) VALUES
+(1, 'Mathematics'),
+(2, 'Italian'),
+(3, 'Philosophy');
 
 --
--- Indici per le tabelle scaricate
+-- Indexes
 --
 
 --
--- Indici per le tabelle `courses`
+-- Indexes for `apirest_courses`
 --
-ALTER TABLE `courses`
+ALTER TABLE `apirest_courses`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indici per le tabelle `course_subject`
+-- Indexes for `apirest_course_subject`
 --
-ALTER TABLE `course_subject`
+ALTER TABLE `apirest_course_subject`
   ADD PRIMARY KEY (`course_id`,`subject_id`),
-  ADD KEY `FK_subject` (`subject_id`);
+  ADD KEY `apirest_subject_id` (`subject_id`);
 
 --
--- Indici per le tabelle `subjects`
+-- Indexes for `apirest_subjects`
 --
-ALTER TABLE `subjects`
+ALTER TABLE `apirest_subjects`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT per le tabelle scaricate
+-- AUTO_INCREMENT values
 --
 
 --
--- AUTO_INCREMENT per la tabella `courses`
+-- AUTO_INCREMENT for `apirest_courses`
 --
-ALTER TABLE `courses`
+ALTER TABLE `apirest_courses`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT per la tabella `subjects`
+-- AUTO_INCREMENT for `apirest_subjects`
 --
-ALTER TABLE `subjects`
+ALTER TABLE `apirest_subjects`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Limiti per le tabelle scaricate
+-- Constraints
 --
 
 --
--- Limiti per la tabella `course_subject`
+-- Foreign keys for `apirest_course_subject`
 --
-ALTER TABLE `course_subject`
-  ADD CONSTRAINT `FK_course` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_subject` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `apirest_course_subject`
+  ADD CONSTRAINT `FK_apirest_course` FOREIGN KEY (`course_id`) REFERENCES `apirest_courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_apirest_subject` FOREIGN KEY (`subject_id`) REFERENCES `apirest_subjects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
